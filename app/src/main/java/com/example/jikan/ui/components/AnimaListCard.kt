@@ -25,13 +25,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -42,7 +39,7 @@ import com.example.jikan.ui.theme.JikanTheme
 import com.example.jikan.ui.theme.MediumFont
 
 @Composable
-fun AnimaListCard(
+fun AnimeListCard(
     title: String,
     episodeCount: Int,
     rating: String,
@@ -75,12 +72,6 @@ fun AnimaListCard(
             ) {
 
                 Box(contentAlignment = Alignment.BottomStart) {
-
-//                    Image(
-//                        painter = painterResource(id = R.drawable.anima_image_small),
-//                        contentDescription = "Image",
-//                        modifier = Modifier.clip(RoundedCornerShape(5.dp))
-//                    )
 
                     AsyncImage(
                         model = image,
@@ -136,18 +127,6 @@ fun AnimaListCard(
 
         }
 
-//        AsyncImage(
-//            model = image,
-//            contentDescription = null,
-//        )
-
-//        Image(
-//            painter = painterResource(id = R.drawable.anima_image_big),
-//            contentDescription = "Image",
-//            modifier = Modifier.clip(RoundedCornerShape(5.dp))
-//        )
-
-
     }
 
 }
@@ -155,7 +134,7 @@ fun AnimaListCard(
 @Composable
 fun AnimePreview() {
     JikanTheme {
-        AnimaListCard(
+        AnimeListCard(
             "Sousou no Frieren",
             28,
             "PG-13",
@@ -181,7 +160,7 @@ fun AnimeListPagePreview() {
             items(100) {
 
                 Box(modifier = Modifier.padding(10.dp), contentAlignment = Alignment.Center) {
-                    AnimaListCard(
+                    AnimeListCard(
                         "Fullmetal Alchemist Brotherhood",
                         28,
                         "PG-13",

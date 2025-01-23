@@ -1,4 +1,5 @@
 package com.example.jikan.retrofit
+
 import com.example.jikan.data.AnimeDetail.DetailAnimaResponse
 import com.example.jikan.data.HomeScreenAnima.HomeScreenAnimaResponse
 import retrofit2.http.GET

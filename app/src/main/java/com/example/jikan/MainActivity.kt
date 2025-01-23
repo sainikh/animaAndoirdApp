@@ -34,11 +34,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.jikan.ui.components.AnimaDetailScreen
-import com.example.jikan.ui.components.AnimaListCard
+import com.example.jikan.ui.components.AnimeDetailScreen
+import com.example.jikan.ui.components.AnimeListCard
 import com.example.jikan.ui.theme.JikanTheme
-import com.example.jikan.ui.viewmodel.AnimaViewModel
-import kotlinx.coroutines.launch
+import com.example.jikan.ui.viewmodel.AnimeViewModel
 
 
 class MainActivity : ComponentActivity() {
@@ -48,10 +47,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             JikanTheme {
-                val model = AnimaViewModel()
+                val model = AnimeViewModel()
                 Scaffold(topBar = {
                     TopAppBar(
-                        title = { Text("Anima") },
+                        title = { Text("Anime") },
                         Modifier.background(Color.Black)
                     )
                 }) { innerPadding ->
@@ -71,7 +70,7 @@ sealed class Routes(val route: String) {
 }
 
 @Composable
-fun App(model: AnimaViewModel) {
+fun App(model: AnimeViewModel) {
     val navController = rememberNavController()
 
     NavHost(
@@ -91,9 +90,9 @@ fun App(model: AnimaViewModel) {
 
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-private fun HomeScreen(navController: NavHostController, model: AnimaViewModel) {
+private fun HomeScreen(navController: NavHostController, model: AnimeViewModel) {
 
-    val animaList by model.animaList.collectAsState()
+    val animeList by model.animeList.collectAsState()
     val isLoading by model.isLoading.collectAsState()
     val errorMessage by model.errorMessage.collectAsState()
     val context = LocalContext.current
@@ -109,16 +108,16 @@ private fun HomeScreen(navController: NavHostController, model: AnimaViewModel) 
             horizontalArrangement = Arrangement.SpaceEvenly,
 
             ) {
-            items(animaList.size) { index ->
-                val anima = animaList[index]
+            items(animeList.size) { index ->
+                val anime = animeList[index]
                 Box(modifier = Modifier.padding(10.dp), contentAlignment = Alignment.Center) {
-                    AnimaListCard(
-                        anima.title,
-                        anima.episodes,
-                        anima.rating,
-                        anima.images.jpg.large_image_url,
+                    AnimeListCard(
+                        anime.title,
+                        anime.episodes,
+                        anime.rating,
+                        anime.images.jpg.large_image_url,
                         {
-                            navController.navigate(Routes.detail.route + "/${anima.id}")
+                            navController.navigate(Routes.detail.route + "/${anime.id}")
                         }
                     )
 
@@ -128,7 +127,7 @@ private fun HomeScreen(navController: NavHostController, model: AnimaViewModel) 
     }
 
     LaunchedEffect(Unit) {
-        model.fetchTopAnima()
+        model.fetchTopAnime()
     }
 
     LaunchedEffect(errorMessage) {
@@ -142,8 +141,8 @@ private fun HomeScreen(navController: NavHostController, model: AnimaViewModel) 
 }
 
 @Composable
-fun Detail(model: AnimaViewModel, id: Int) {
-    val detail by model.animaDetail.collectAsState()
+fun Detail(model: AnimeViewModel, id: Int) {
+    val detail by model.animeDetail.collectAsState()
     val isLoading by model.isLoading.collectAsState()
     val errorMessage by model.errorMessage.collectAsState()
     val context = LocalContext.current
@@ -151,16 +150,16 @@ fun Detail(model: AnimaViewModel, id: Int) {
     if (isLoading) {
         LoadingScreen()
     } else {
-        detail?.let { anima ->
-            val genres = anima.genres.map { it -> it.name }
-            AnimaDetailScreen(
-                anima.trailer.youtube_id,
-                anima.images.jpg.large_image_url,
-                anima.title,
-                anima.synopsis,
+        detail?.let { anime ->
+            val genres = anime.genres.map { it -> it.name }
+            AnimeDetailScreen(
+                anime.trailer.youtube_id,
+                anime.images.jpg.large_image_url,
+                anime.title,
+                anime.synopsis,
                 genres,
-                anima.episodes,
-                anima.rating
+                anime.episodes,
+                anime.rating
             )
         } ?: run {
             Column(
@@ -174,7 +173,7 @@ fun Detail(model: AnimaViewModel, id: Int) {
     }
 
     LaunchedEffect(Unit) {
-        model.fetchAnimaDetails(id)
+        model.fetchAnimeDetails(id)
     }
 
     LaunchedEffect(errorMessage) {
@@ -200,6 +199,6 @@ fun LoadingScreen() {
 @Composable
 fun GreetingPreview() {
     JikanTheme {
-        HomeScreen(rememberNavController(), AnimaViewModel())
+        HomeScreen(rememberNavController(), AnimeViewModel())
     }
 }

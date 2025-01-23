@@ -1,5 +1,6 @@
-package com.example.jikan.data.HomeScreenAnima
+package com.example.jikan.data.HomeScreenAnime
 
+import com.example.jikan.data.HomeScreenAnima.Images
 import com.google.gson.annotations.SerializedName
 
 data class Data(

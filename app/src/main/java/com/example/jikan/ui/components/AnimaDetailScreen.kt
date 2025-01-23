@@ -35,7 +35,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
 @Composable
-fun AnimaDetailScreen(
+fun AnimeDetailScreen(
     videoUrl: String?,
     imageUrl: String,
     tittle: String,
@@ -163,9 +163,9 @@ fun Genera(list: List<String>) {
 
 @Preview
 @Composable
-private fun AnimaDetailScreenPreview() {
+private fun AnimeDetailScreenPreview() {
     JikanTheme {
-        AnimaDetailScreen(
+        AnimeDetailScreen(
             "",
             "",
             "Initial D Fourth Stage",
